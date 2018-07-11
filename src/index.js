@@ -67,6 +67,11 @@ export default class Alipay {
     const isPermissionDenied = response => {
       return ['40006'].indexOf(response.code) !== -1
     }
+
+    if (Object.prototype.toString.call(response) === '[object String]') {
+      response = JSON.parse(response)
+    }
+    
     const result = {}
     const respType = utils.responseType(response)
     const respData = response[respType]

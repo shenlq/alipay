@@ -41,6 +41,10 @@ export function verifySign (publicKey, response, omit, options) {
 }
 
 export function responseType (response) {
+  if (Object.prototype.toString.call(response) === '[object String]') {
+    response = JSON.parse(response)
+  }
+  
   const type = Object.keys(config.ALIPAY_API_LIST)
     .map(name => name.replace(/\./g, '_'))
     .find(api => `${api}_response` in response)
